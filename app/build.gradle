@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.github.phonemirror.phonemirrorclient"
+        minSdkVersion 21
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        all {
+            buildConfigField "String", "multicastAddress", "\"224.0.12.34\""
+            buildConfigField "int", "port", "8899"
+            buildConfigField "int", "beaconFrequency", "5"
+            buildConfigField "int", "timeout", "10"
+        }
+    }
+}
+
+ext {
+    daggerVersion = "2.11"
+    gsonVersion = "2.8.0"
+    supportLibsVersion = "25.3.1"
+    butterknifeVersion = "8.6.0"
+    archComponentsVersion = "1.0.0-alpha1"
+    constraintLayoutVersion = "1.0.2"
+    timberVersion = "4.5.1"
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    })
+
+
+
+
+    // Google support libs
+    compile "com.android.support:appcompat-v7:${supportLibsVersion}"
+    compile "com.android.support:design:${supportLibsVersion}"
+    compile "com.android.support:support-v4:${supportLibsVersion}"
+    compile "com.android.support:recyclerview-v7:${supportLibsVersion}"
+    compile "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
+
+    testCompile 'junit:junit:4.12'
+
+    // Dagger 2
+    compile "com.google.dagger:dagger-android:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    // gson
+    compile "com.google.code.gson:gson:${gsonVersion}"
+
+    // architecture components
+    compile "android.arch.lifecycle:runtime:${archComponentsVersion}"
+    compile "android.arch.lifecycle:extensions:${archComponentsVersion}"
+    annotationProcessor "android.arch.lifecycle:compiler:${archComponentsVersion}"
+
+    // butterknife
+    compile "com.jakewharton:butterknife:${butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+
+    //timber
+    compile "com.jakewharton.timber:timber:${timberVersion}"
+}
