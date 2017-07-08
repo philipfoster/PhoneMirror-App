@@ -6,11 +6,24 @@
     tools:context="com.github.phonemirror.phonemirrorclient.ui.addDevice.AddDeviceFragment">
 
 
+    <TextView
+        android:id="@+id/pairTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/select_device_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/page_title_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/refreshFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:clickable="true"
         app:fabSize="normal"
@@ -18,4 +31,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/ic_refresh_24dp"
         tools:ignore="RtlHardcoded" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/devicesList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pairTitleText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/noDevicesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/no_devices_found_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.502" />
+
+
 </android.support.constraint.ConstraintLayout>

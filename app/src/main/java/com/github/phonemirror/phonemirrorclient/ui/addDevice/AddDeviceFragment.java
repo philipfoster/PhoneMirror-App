@@ -20,9 +20,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddDeviceFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * This class provides the flow for discovering and pairing with new devices.
  */
 public class AddDeviceFragment extends Fragment implements Injectable {
 
@@ -32,13 +30,16 @@ public class AddDeviceFragment extends Fragment implements Injectable {
 
     private AddDeviceViewModel viewModel;
 
+    /**
+     * This method should not be used directly. You should use {@link #newInstance()} instead.
+     */
     public AddDeviceFragment() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * this fragment.
 
      * @return A new instance of fragment AddDeviceFragment.
      */
@@ -71,6 +72,7 @@ public class AddDeviceFragment extends Fragment implements Injectable {
     @OnClick(R.id.refreshFab)
     void onRefreshClicked() {
         Timber.d("Refresh clicked");
+        viewModel.findDevices();
     }
 
     @Override
