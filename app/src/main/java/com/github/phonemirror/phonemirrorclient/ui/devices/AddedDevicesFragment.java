@@ -16,6 +16,9 @@ import com.github.phonemirror.phonemirrorclient.ui.NavigationController;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -48,6 +51,7 @@ public class AddedDevicesFragment extends LifecycleFragment implements Injectabl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -60,9 +64,15 @@ public class AddedDevicesFragment extends LifecycleFragment implements Injectabl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_addeddevices_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_addeddevices_list, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
+    @OnClick(R.id.addDeviceFab)
+    public void onFabClicked() {
+        navController.showAddDeviceMenu();
+    }
 
     @Override
     public void onAttach(Context context) {

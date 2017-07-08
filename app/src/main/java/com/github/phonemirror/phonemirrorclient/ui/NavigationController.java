@@ -9,6 +9,8 @@ import com.github.phonemirror.phonemirrorclient.ui.devices.AddedDevicesFragment;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * This controller is responsible for switching fragments.
  */
@@ -17,7 +19,7 @@ public class NavigationController {
     private final FragmentManager fragmentManager;
 
     @Inject
-    public NavigationController(MainActivity activity) {
+    NavigationController(MainActivity activity) {
         containerId = R.id.fragment_container;
         fragmentManager = activity.getSupportFragmentManager();
     }
@@ -27,5 +29,9 @@ public class NavigationController {
         fragmentManager.beginTransaction()
                 .replace(containerId, fragment)
                 .commit();
+    }
+
+    public void showAddDeviceMenu() {
+        Timber.d("Switching to add device...");
     }
 }
