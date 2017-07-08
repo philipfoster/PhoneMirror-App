@@ -16,7 +16,6 @@ package com.github.phonemirror.phonemirrorclient.di;
  */
 
 
-import com.android.example.github.GithubApp;
 
 import android.app.Application;
 
@@ -26,6 +25,7 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 
+@SuppressWarnings("WeakerAccess")
 @Singleton
 @Component(modules = {
         AndroidInjectionModule.class,
@@ -33,10 +33,10 @@ import dagger.android.AndroidInjectionModule;
         MainActivityModule.class
 })
 public interface AppComponent {
+    void inject(PhoneMirrorApp phoneMirrorApp);
     @Component.Builder
     interface Builder {
         @BindsInstance Builder application(Application application);
         AppComponent build();
     }
-    void inject(PhoneMirrorApp githubApp);
 }

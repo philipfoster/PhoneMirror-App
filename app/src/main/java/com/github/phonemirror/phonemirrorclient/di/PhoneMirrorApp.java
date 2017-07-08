@@ -11,10 +11,6 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import timber.log.Timber;
 
-/**
- * Created by philip on 7/7/17.
- */
-
 public class PhoneMirrorApp extends Application implements HasActivityInjector {
 
     @Inject
@@ -26,6 +22,7 @@ public class PhoneMirrorApp extends Application implements HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+        AppInjector.init(this);
     }
 
     @Override

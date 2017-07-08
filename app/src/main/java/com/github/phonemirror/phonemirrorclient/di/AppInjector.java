@@ -17,11 +17,6 @@ package com.github.phonemirror.phonemirrorclient.di;
  */
 
 import android.app.Activity;
-
-import dagger.android.AndroidInjection;
-
-
-import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,12 +30,13 @@ import dagger.android.support.HasSupportFragmentInjector;
 /**
  * Helper class to automatically inject fragments if they implement {@link Injectable}.
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"WeakerAccess"})
 public class AppInjector {
     private AppInjector() {}
     public static void init(PhoneMirrorApp phoneMirrorApp) {
         DaggerAppComponent.builder().application(phoneMirrorApp)
                 .build().inject(phoneMirrorApp);
+
         phoneMirrorApp
                 .registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
                     @Override

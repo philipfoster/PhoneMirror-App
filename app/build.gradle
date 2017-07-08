@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.github.phonemirror.phonemirrorclient"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -35,12 +35,13 @@ android {
 ext {
     daggerVersion = "2.11"
     gsonVersion = "2.8.0"
-    supportLibsVersion = "25.3.1"
+    supportLibsVersion = "26.0.0-beta1"
     butterknifeVersion = "8.6.0"
-    archComponentsVersion = "1.0.0-alpha1"
+    archComponentsVersion = "1.0.0-alpha3"
     constraintLayoutVersion = "1.0.2"
     timberVersion = "4.5.1"
-
+    rxJavaVersion = "2.1.0"
+    rxAndroidVersion = "2.0.1"
 }
 
 dependencies {
@@ -49,8 +50,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
-
-
 
 
     // Google support libs
@@ -63,8 +62,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Dagger 2
-    compile "com.google.dagger:dagger-android:${daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    compile "com.google.dagger:dagger:$daggerVersion"
+    compile "com.google.dagger:dagger-android:$daggerVersion"
+    compile "com.google.dagger:dagger-android-support:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+
+
+    // rx
+    compile "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+
 
     // gson
     compile "com.google.code.gson:gson:${gsonVersion}"
