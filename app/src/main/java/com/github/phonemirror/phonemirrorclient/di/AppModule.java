@@ -16,9 +16,31 @@ package com.github.phonemirror.phonemirrorclient.di;
  */
 
 
+import android.app.Application;
+
+import com.github.phonemirror.phonemirrorclient.repo.SerialRepository;
+
+import javax.inject.Inject;
+
 import dagger.Module;
+import dagger.Provides;
 
 @Module(includes = ViewModelModule.class)
 class AppModule {
+
+    @Inject
+    Application app;
+
+    public AppModule() {
+    }
+
+
+    @Provides
+    public SerialRepository provideSerialRepo() {
+        if (app == null) {
+            throw new NullPointerException("app is null");
+        }
+        return new SerialRepository(app);
+    }
 
 }

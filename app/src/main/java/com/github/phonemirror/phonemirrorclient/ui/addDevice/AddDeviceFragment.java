@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.phonemirror.phonemirrorclient.R;
 import com.github.phonemirror.phonemirrorclient.di.Injectable;
+import com.github.phonemirror.phonemirrorclient.repo.SerialRepository;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,9 @@ public class AddDeviceFragment extends Fragment implements Injectable {
 
     @Inject
     ViewModelProvider.Factory vmFactory;
+
+    @Inject
+    SerialRepository repo;
 
     private AddDeviceViewModel viewModel;
 
