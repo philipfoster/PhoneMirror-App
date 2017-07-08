@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.github.phonemirror.phonemirrorclient"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -35,9 +35,9 @@ android {
 ext {
     daggerVersion = "2.11"
     gsonVersion = "2.8.0"
-    supportLibsVersion = "26.0.0-beta1"
+    supportLibsVersion = "25.3.1"
     butterknifeVersion = "8.6.0"
-    archComponentsVersion = "1.0.0-alpha3"
+    archComponentsVersion = "1.0.0-alpha1"
     constraintLayoutVersion = "1.0.2"
     timberVersion = "4.5.1"
     rxJavaVersion = "2.1.0"
@@ -51,15 +51,13 @@ dependencies {
         exclude group: 'com.google.code.findbugs'
     })
 
-
     // Google support libs
-    compile "com.android.support:appcompat-v7:${supportLibsVersion}"
-    compile "com.android.support:design:${supportLibsVersion}"
-    compile "com.android.support:support-v4:${supportLibsVersion}"
-    compile "com.android.support:recyclerview-v7:${supportLibsVersion}"
-    compile "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
-
-    testCompile 'junit:junit:4.12'
+    compile "com.android.support:appcompat-v7:$supportLibsVersion"
+    compile "com.android.support:design:$supportLibsVersion"
+    compile "com.android.support:support-v4:$supportLibsVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibsVersion"
+    compile "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    compile "com.android.support:design:$supportLibsVersion"
 
     // Dagger 2
     compile "com.google.dagger:dagger:$daggerVersion"
@@ -68,24 +66,23 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 
-
     // rx
-    compile "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-    compile "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
-
+    compile "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
     // gson
-    compile "com.google.code.gson:gson:${gsonVersion}"
+    compile "com.google.code.gson:gson:$gsonVersion"
 
     // architecture components
-    compile "android.arch.lifecycle:runtime:${archComponentsVersion}"
-    compile "android.arch.lifecycle:extensions:${archComponentsVersion}"
-    annotationProcessor "android.arch.lifecycle:compiler:${archComponentsVersion}"
+    compile "android.arch.lifecycle:runtime:$archComponentsVersion"
+    compile "android.arch.lifecycle:extensions:$archComponentsVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archComponentsVersion"
 
     // butterknife
-    compile "com.jakewharton:butterknife:${butterknifeVersion}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${butterknifeVersion}"
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
 
     //timber
-    compile "com.jakewharton.timber:timber:${timberVersion}"
+    compile "com.jakewharton.timber:timber:$timberVersion"
+    testCompile 'junit:junit:4.12'
 }

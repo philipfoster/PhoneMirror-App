@@ -19,6 +19,8 @@ package com.github.phonemirror.phonemirrorclient.di;
 
 import android.app.Application;
 
+import com.github.phonemirror.phonemirrorclient.PhoneMirrorApp;
+
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
@@ -34,6 +36,7 @@ import dagger.android.AndroidInjectionModule;
 })
 public interface AppComponent {
     void inject(PhoneMirrorApp phoneMirrorApp);
+
     @Component.Builder
     interface Builder {
         @BindsInstance Builder application(Application application);

@@ -1,8 +1,9 @@
-package com.github.phonemirror.phonemirrorclient.di;
+package com.github.phonemirror.phonemirrorclient;
 
 import android.app.Activity;
 import android.app.Application;
-import android.arch.core.BuildConfig;
+
+import com.github.phonemirror.phonemirrorclient.di.AppInjector;
 
 import javax.inject.Inject;
 
@@ -13,20 +14,21 @@ import timber.log.Timber;
 
 public class PhoneMirrorApp extends Application implements HasActivityInjector {
 
+    private static final String TAG = "PhoneMirrorApp";
+
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        }
+        Timber.plant(new Timber.DebugTree());
+
         AppInjector.init(this);
     }
 
     @Override
     public AndroidInjector<Activity> activityInjector() {
-        return null;
+        return dispatchingAndroidInjector;
     }
 }
