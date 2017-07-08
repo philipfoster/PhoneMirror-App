@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatLifecycleActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
-            controller.showDevicesList();
+            controller.showInitialFragment();
         }
     }
 

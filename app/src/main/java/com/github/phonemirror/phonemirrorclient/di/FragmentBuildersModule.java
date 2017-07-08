@@ -1,5 +1,6 @@
 package com.github.phonemirror.phonemirrorclient.di;
 
+import com.github.phonemirror.phonemirrorclient.ui.addDevice.AddDeviceFragment;
 import com.github.phonemirror.phonemirrorclient.ui.devices.AddedDevicesFragment;
 
 import dagger.Module;
@@ -11,6 +12,9 @@ public abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract AddedDevicesFragment contributeDevicesFragment();
+
+    @ContributesAndroidInjector
+    abstract AddDeviceFragment contributteAddDeviceFragment();
 //    @ContributesAndroidInjector
 //    abstract RepoFragment contributeRepoFragment();
 //
