@@ -5,7 +5,7 @@ import com.github.phonemirror.phonemirrorclient.repo.SerialRepository;
 
 import java.net.InetAddress;
 
-class MessageBuilder<T> {
+public class MessageBuilder<T> {
 
     private String id;
     private T payload;

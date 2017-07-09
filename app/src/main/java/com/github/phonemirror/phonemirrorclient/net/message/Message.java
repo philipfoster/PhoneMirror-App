@@ -3,6 +3,7 @@ package com.github.phonemirror.phonemirrorclient.net.message;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.net.InetAddress;
@@ -43,15 +44,21 @@ public class Message<T> {
      * @param <R> The type of the payload.
      * @param gson An instance of gson to decode with. If {@code null}, a default instance will be created.
      * @param buf the data to decode.
-     * @return The decoded message.
+     * @return The decoded message. or {@code null} if it couldn't be decoded.
      */
+    @Nullable
     public static <R> Message<R> decode(@Nullable Gson gson, String buf) {
 
-        if (gson == null) {
-            gson = new Gson();
-        }
+        try {
+            if (gson == null) {
+                gson = new Gson();
+            }
 
-        return gson.fromJson(buf, new TypeToken<Message<R>>() {}.getType());
+            return gson.fromJson(buf, new TypeToken<Message<R>>() {
+            }.getType());
+        } catch (JsonSyntaxException jse) {
+            return null;
+        }
     }
 
 

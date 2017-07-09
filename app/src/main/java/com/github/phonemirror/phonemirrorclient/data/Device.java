@@ -78,6 +78,7 @@ public class Device {
                 '}';
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,7 +107,7 @@ public class Device {
     }
 
     @SuppressWarnings("unused")
-    enum Type {PHONE, PC}
+    public enum Type {PHONE, PC}
 
     @SuppressWarnings("unused")
     public static class Builder {

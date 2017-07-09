@@ -18,29 +18,60 @@ package com.github.phonemirror.phonemirrorclient.di;
 
 import android.app.Application;
 
+import com.github.phonemirror.phonemirrorclient.net.NetworkScanner;
+import com.github.phonemirror.phonemirrorclient.net.transport.TcpServer;
+import com.github.phonemirror.phonemirrorclient.net.transport.TransportLayer;
 import com.github.phonemirror.phonemirrorclient.repo.SerialRepository;
+import com.github.phonemirror.phonemirrorclient.util.Configuration;
+import com.google.gson.Gson;
 
-import javax.inject.Inject;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
+@SuppressWarnings("WeakerAccess")
 @Module(includes = ViewModelModule.class)
 class AppModule {
 
-    @Inject
-    Application app;
 
     public AppModule() {
     }
 
+    @Provides
+    public Gson provideGson() {
+        return new Gson();
+    }
 
     @Provides
-    public SerialRepository provideSerialRepo() {
-        if (app == null) {
-            throw new NullPointerException("app is null");
-        }
+    public SerialRepository provideSerialRepo(Application app) {
         return new SerialRepository(app);
     }
 
+    @Provides
+    public Configuration provideConfig() {
+        return new Configuration();
+    }
+
+    @Provides
+    @Singleton
+    public ExecutorService provideThreadPool() {
+        return Executors.newCachedThreadPool();
+    }
+
+    @Provides
+    @Singleton
+    public TransportLayer provideTransportLayer(ExecutorService threadPool, Configuration config, Gson gson) {
+        return new TcpServer(threadPool, config, gson);
+    }
+
+    @Provides
+    @Singleton
+    public NetworkScanner provideScanner(Configuration config, TransportLayer server,
+                                         SerialRepository repo, ExecutorService threadPool, Gson gson) {
+        return new NetworkScanner(config, server, repo, threadPool, gson);
+    }
 }

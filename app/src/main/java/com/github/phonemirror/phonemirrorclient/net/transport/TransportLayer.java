@@ -3,31 +3,35 @@ package com.github.phonemirror.phonemirrorclient.net.transport;
 import com.github.phonemirror.phonemirrorclient.net.message.Message;
 import com.github.phonemirror.phonemirrorclient.net.message.MessageFilter;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
 /**
  * A TransportLayer contains logic to connect with a remote device.
- * @implNote This class only holds a weak reference to a listener, so it cannot be used to
- * keep an object from being garbage collected.
+ * @implNote This class holds a strong reference to listeners, so it is important to call
+ * {@link #unregisterListener(TransportListener)} when done to prevent memory leaks.
+ * <p/>
+ * This class is thread-safe
  */
-public abstract class TransportLayer {
+public abstract class TransportLayer implements Closeable {
 
-    private Map<TransportListener, MessageFilter> listeners = new WeakHashMap<>();
+    private final Map<TransportListener, MessageFilter> listeners = new ConcurrentHashMap<>();
 
     /**
      * Send a message to a remote machine
-     * @param message
+     * @param message the message to send
      */
-    public abstract void send(Message<?> message);
+    public abstract void send(Message<?> message) throws IOException;
 
     /**
      * This method is to be used by implementing classes to
-     * @param message
+     * @param message the message to publish
      */
-    protected void publishMessage(Message<?> message) {
+    void publishMessage(Message<?> message) {
         listeners.forEach((k, v) -> {
             if (v.filter(message)) {
                 k.onMessageReceived(message);
@@ -55,5 +59,10 @@ public abstract class TransportLayer {
      */
     public void unregisterListener(TransportListener listener) {
         listeners.remove(listener);
+    }
+
+    @Override
+    public void close() throws IOException {
+        listeners.clear();
     }
 }
