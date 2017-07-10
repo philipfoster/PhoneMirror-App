@@ -36,7 +36,7 @@ ext {
     daggerVersion = "2.11"
     gsonVersion = "2.8.0"
     supportLibsVersion = "25.3.1"
-    butterknifeVersion = "8.6.0"
+    butterknifeVersion = "8.7.0"
     archComponentsVersion = "1.0.0-alpha1"
     constraintLayoutVersion = "1.0.2"
     timberVersion = "4.5.1"

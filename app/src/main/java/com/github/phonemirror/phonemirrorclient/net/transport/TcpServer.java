@@ -20,16 +20,14 @@ import timber.log.Timber;
 public class TcpServer extends TransportLayer {
 
     private static final int SOCKET_TIMEOUT_MS = 1000;
-    private static final int WAIT_DURATION_MS = 3000;
+
     private final Object runningLock = new Object();
-    private ExecutorService threadPool;
     private Configuration config;
     private Gson gson;
     private volatile boolean isRunning = true;
 
     @Inject
     public TcpServer(ExecutorService threadPool, Configuration config, Gson gson) {
-        this.threadPool = threadPool;
         this.config = config;
         this.gson = gson;
 
@@ -56,7 +54,12 @@ public class TcpServer extends TransportLayer {
                     String data = reader.readLine().trim();
                     Timber.v("Received data: \n[%s]\n", data);
 
-                    publishMessage(Message.decode(gson, data));
+                    Message message = Message.build()
+                            .copyFrom(Message.decode(gson, data))
+                            .setRecipient(sock.getInetAddress())
+                            .createMessage();
+
+                    publishMessage(message);
                 } catch (SocketTimeoutException tex) {
                     // Timing out is expected. Timeout is set to prevent the server from running
                     // indefinitely (until a packet was received) after it was closed.

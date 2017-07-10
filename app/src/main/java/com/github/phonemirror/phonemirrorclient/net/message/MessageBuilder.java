@@ -16,13 +16,22 @@ public class MessageBuilder<T> {
 
     MessageBuilder() {}
 
-    public MessageBuilder setId(String id) {
+    public MessageBuilder<T> setId(String id) {
         this.id = id;
         return this;
     }
 
-    public MessageBuilder setRecipient(InetAddress address) {
+    public MessageBuilder<T> setRecipient(InetAddress address) {
         this.address = address;
+        return this;
+    }
+
+    public MessageBuilder<T> copyFrom(Message<T> message) {
+        id = message.getId();
+        payload = message.getPayload();
+        type = message.getMessageType();
+        address = message.getRecipient();
+        version = message.getVersion();
         return this;
     }
 
@@ -32,26 +41,22 @@ public class MessageBuilder<T> {
      * @param repo the repository
      * @return a reference to this builder for method chaining.
      */
-    public MessageBuilder setId(SerialRepository repo) {
+    public MessageBuilder<T> setId(SerialRepository repo) {
         this.id = repo.getSerialId();
         return this;
     }
 
-    public InetAddress getAddress() {
-        return address;
-    }
-
-    public MessageBuilder setPayload(T payload) {
+    public MessageBuilder<T> setPayload(T payload) {
         this.payload = payload;
         return this;
     }
 
-    public MessageBuilder setType(MessageType type) {
+    public MessageBuilder<T> setType(MessageType type) {
         this.type = type;
         return this;
     }
 
-    public MessageBuilder setVersion(int version) {
+    public MessageBuilder<T> setVersion(int version) {
         this.version = version;
         return this;
     }

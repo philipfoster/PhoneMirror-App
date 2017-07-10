@@ -69,7 +69,6 @@ public class NetworkScanner implements Publisher<Device> {
                 subscriber.onError(e);
             } finally {
                 isScanning.set(false);
-                Timber.d("Done subscribing.");
             }
         }
     }
