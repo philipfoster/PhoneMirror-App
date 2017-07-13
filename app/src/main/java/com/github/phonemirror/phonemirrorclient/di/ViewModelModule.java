@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.github.phonemirror.phonemirrorclient.ui.addDevice.AddDeviceViewModel;
 import com.github.phonemirror.phonemirrorclient.ui.devices.AddedDevicesViewModel;
+import com.github.phonemirror.phonemirrorclient.ui.pair.PairDialogViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -21,6 +22,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddDeviceViewModel.class)
     abstract ViewModel bindAddDeviceViewModel(AddDeviceViewModel vm);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PairDialogViewModel.class)
+    abstract ViewModel bindPairDialogViewModel(PairDialogViewModel vm);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(PhoneMirrorViewModelFactory factory);

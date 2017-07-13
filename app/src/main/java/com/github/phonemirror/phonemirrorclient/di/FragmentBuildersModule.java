@@ -2,6 +2,7 @@ package com.github.phonemirror.phonemirrorclient.di;
 
 import com.github.phonemirror.phonemirrorclient.ui.addDevice.AddDeviceFragment;
 import com.github.phonemirror.phonemirrorclient.ui.devices.AddedDevicesFragment;
+import com.github.phonemirror.phonemirrorclient.ui.pair.PairDialogFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -14,13 +15,9 @@ public abstract class FragmentBuildersModule {
     abstract AddedDevicesFragment contributeDevicesFragment();
 
     @ContributesAndroidInjector
-    abstract AddDeviceFragment contributteAddDeviceFragment();
-//    @ContributesAndroidInjector
-//    abstract RepoFragment contributeRepoFragment();
-//
-//    @ContributesAndroidInjector
-//    abstract UserFragment contributeUserFragment();
-//
-//    @ContributesAndroidInjector
-//    abstract SearchFragment contributeSearchFragment();
+    abstract AddDeviceFragment contributeAddDeviceFragment();
+
+    @ContributesAndroidInjector
+    abstract PairDialogFragment contributePairDialogFragment();
+
 }
