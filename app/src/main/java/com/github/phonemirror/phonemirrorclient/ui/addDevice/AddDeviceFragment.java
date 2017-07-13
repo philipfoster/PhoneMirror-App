@@ -19,7 +19,7 @@ import com.github.phonemirror.phonemirrorclient.R;
 import com.github.phonemirror.phonemirrorclient.data.Device;
 import com.github.phonemirror.phonemirrorclient.data.LoadingList;
 import com.github.phonemirror.phonemirrorclient.di.Injectable;
-import com.github.phonemirror.phonemirrorclient.repo.SerialRepository;
+import com.github.phonemirror.phonemirrorclient.ui.NavigationController;
 
 import javax.inject.Inject;
 
@@ -39,7 +39,7 @@ public class AddDeviceFragment extends LifecycleFragment implements Injectable, 
     ViewModelProvider.Factory vmFactory;
 
     @Inject
-    SerialRepository repo;
+    NavigationController navController;
 
     @BindView(R.id.refreshFab)
     FloatingActionButton refreshFab;
@@ -52,7 +52,6 @@ public class AddDeviceFragment extends LifecycleFragment implements Injectable, 
 
     private AddDeviceViewModel viewModel;
     private AddDeviceAdapter adapter;
-    private boolean isScanning = false;
 
     /**
      * This method should not be used directly. You should use {@link #newInstance()} instead.
@@ -104,9 +103,6 @@ public class AddDeviceFragment extends LifecycleFragment implements Injectable, 
 
     @OnClick(R.id.refreshFab)
     void refreshList() {
-        if (isScanning) {
-            return;
-        }
         Timber.d("Refresh clicked");
 
         LiveData<LoadingList<Device>> observable = viewModel.findDevices();
@@ -116,9 +112,10 @@ public class AddDeviceFragment extends LifecycleFragment implements Injectable, 
                 adapter.updateData(devices);
 
                 if (devices != null) {
-                    isScanning = devices.isLoading();
                     if (devices.isLoading()) {
-                        refreshFab.startAnimation(rotateAnim);
+                        if (refreshFab.getAnimation() == null) {
+                            refreshFab.startAnimation(rotateAnim);
+                        }
                     } else {
                         observable.removeObservers(this);
                         refreshFab.clearAnimation();
@@ -142,6 +139,7 @@ public class AddDeviceFragment extends LifecycleFragment implements Injectable, 
     @Override
     public void onItemClicked(Device item) {
         Timber.d("item clicked: %s", item.toString());
+        navController.showPairFragmentDialog(item);
     }
 
 

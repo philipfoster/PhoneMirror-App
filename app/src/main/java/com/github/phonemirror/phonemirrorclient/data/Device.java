@@ -20,13 +20,14 @@ package com.github.phonemirror.phonemirrorclient.data;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.net.InetAddress;
 
 /**
  * This class contains information about a compatible device on the network
  */
 @SuppressWarnings("WeakerAccess")
-public class Device {
+public class Device implements Serializable {
 
     private String name;
     private String serialNo;

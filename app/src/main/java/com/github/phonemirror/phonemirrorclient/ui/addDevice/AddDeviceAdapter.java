@@ -1,6 +1,5 @@
 package com.github.phonemirror.phonemirrorclient.ui.addDevice;
 
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ class AddDeviceAdapter extends RecyclerView.Adapter<AddDeviceAdapter.ViewHolder>
     private final List<Device> values;
     private final OnDeviceInteractionListener interactionListener;
 
-    public AddDeviceAdapter(OnDeviceInteractionListener listener) {
+    AddDeviceAdapter(OnDeviceInteractionListener listener) {
         values = new ArrayList<>();
         interactionListener = listener;
     }
@@ -37,9 +36,7 @@ class AddDeviceAdapter extends RecyclerView.Adapter<AddDeviceAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.data = values.get(position);
-        holder.idView.setText(values.get(position).getIpAddress().toString());
-        holder.contentView.setText(values.get(position).getName());
+        holder.changeContent(values.get(position));
     }
 
     /**
@@ -65,19 +62,27 @@ class AddDeviceAdapter extends RecyclerView.Adapter<AddDeviceAdapter.ViewHolder>
         private final View view;
         private final TextView idView;
         private final TextView contentView;
-        private final AppCompatImageButton imageButton;
         private Device data;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-
             idView = (TextView) view.findViewById(R.id.id);
             contentView = (TextView) view.findViewById(R.id.content);
-            imageButton = (AppCompatImageButton) view.findViewById(R.id.connectButton);
 
-            imageButton.setOnClickListener(v -> Timber.d("onClick called on list item for %s", data.toString()));
+            view.setOnClickListener(v -> interactionListener.onItemClicked(data));
         }
 
+        void changeContent(Device device) {
+            data = device;
+            updateUi();
+
+        }
+
+        private void updateUi() {
+            Timber.d("updateUi() called");
+            idView.setText(data.getIpAddress().toString());
+            contentView.setText(data.getName());
+        }
     }
 }
