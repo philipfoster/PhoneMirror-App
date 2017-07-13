@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,10 @@ import butterknife.ButterKnife;
 public class PairDialogFragment extends DialogLifecycleFragment implements Injectable  {
 
     private static final String ARG_DEVICE = "device";
+
     @Inject
     ViewModelProvider.Factory vmFactory;
+
     private Device device;
     private PairDialogViewModel viewModel;
 
@@ -65,14 +66,15 @@ public class PairDialogFragment extends DialogLifecycleFragment implements Injec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pair_dialog, container, false);
-        ButterKnife.bind(this, view);
+        viewModel = ViewModelProviders.of(this, vmFactory).get(PairDialogViewModel.class);
+        ButterKnife.bind(viewModel, view);
+
+        setupUi();
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(this, vmFactory).get(PairDialogViewModel.class);
+    private void setupUi() {
+        viewModel.setTitle(device.getName());
     }
 
     @Override
