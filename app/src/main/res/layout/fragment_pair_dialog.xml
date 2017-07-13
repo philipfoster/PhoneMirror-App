@@ -1,3 +1,4 @@
+<!-- TODO: add separate layout for horizontal configuration. Not all views are visible currently -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,8 +32,8 @@
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
         app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintLeft_toLeftOf="@+id/pwCard"
-        app:layout_constraintRight_toRightOf="@+id/pwCard"
+        app:layout_constraintLeft_toLeftOf="@+id/usbCard"
+        app:layout_constraintRight_toRightOf="@+id/usbCard"
         app:layout_constraintTop_toBottomOf="@+id/dialogTitle">
 
         <android.support.constraint.ConstraintLayout
