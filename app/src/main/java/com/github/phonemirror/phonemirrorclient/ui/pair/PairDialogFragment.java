@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.phonemirror.phonemirrorclient.R;
 import com.github.phonemirror.phonemirrorclient.data.Device;
@@ -15,7 +16,10 @@ import com.github.phonemirror.phonemirrorclient.util.DialogLifecycleFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  *
@@ -30,6 +34,12 @@ public class PairDialogFragment extends DialogLifecycleFragment implements Injec
 
     @Inject
     ViewModelProvider.Factory vmFactory;
+
+    @BindView(R.id.dialogTitle)
+    TextView dialogTitle;
+
+    @BindString(R.string.pairing_title_fmt)
+    String titleTextFormat;
 
     private Device device;
     private PairDialogViewModel viewModel;
@@ -67,14 +77,30 @@ public class PairDialogFragment extends DialogLifecycleFragment implements Injec
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pair_dialog, container, false);
         viewModel = ViewModelProviders.of(this, vmFactory).get(PairDialogViewModel.class);
-        ButterKnife.bind(viewModel, view);
+
+        ButterKnife.bind(this, view);
 
         setupUi();
         return view;
     }
 
     private void setupUi() {
-        viewModel.setTitle(device.getName());
+        dialogTitle.setText(String.format(titleTextFormat, device.getName()));
+    }
+
+    @OnClick(R.id.qrCard)
+    void onQrCardClicked() {
+        viewModel.beginQrPair();
+    }
+
+    @OnClick(R.id.pwCard)
+    void onPwCardClicked() {
+        viewModel.beginPasswordPair();
+    }
+
+    @OnClick(R.id.usbCard)
+    void onUsbCardClicked() {
+        viewModel.beginUsbPair();
     }
 
     @Override

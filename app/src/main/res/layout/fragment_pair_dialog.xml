@@ -31,7 +31,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="@+id/usbCard"
         app:layout_constraintRight_toRightOf="@+id/usbCard"
         app:layout_constraintTop_toBottomOf="@+id/dialogTitle">
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/qrCard">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/usbLayout"
+            android:id="@+id/pwLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -165,13 +165,13 @@
         app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/pwLayout"
+            android:id="@+id/usbLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="@+id/usbLayout"
+            app:layout_constraintRight_toRightOf="@+id/pwLayout"
             app:layout_constraintTop_toBottomOf="@+id/qrLayout">
 
             <TextView
